@@ -6,11 +6,18 @@
 #include <algorithm>
 #include <memory>
 
-template<typename T>
-using Observer = std::function<void(T)>;
+#include "Subscription.h"
 
 template<typename T>
-using ObserverPtr = std::shared_ptr<Observer<T>>;
+using ObserverInternal = std::function<void(T)>;
+
+template<typename T>
+using Observer = std::shared_ptr<ObserverInternal<T>>;
+
+template<typename T>
+Observer<T> createObserver(std::function<void(T)> func) {
+    return std::make_shared<ObserverInternal<T>>(func);
+}
 
 using Action = std::function<void()>;
 

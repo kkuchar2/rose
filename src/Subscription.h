@@ -2,12 +2,12 @@
 
 #include "Tools.h"
 
-class Subscription {
+class SubscriptionInternal {
     private:
         Action removeAction;
 
     public:
-        explicit Subscription(Action removeAction) {
+        explicit SubscriptionInternal(Action removeAction) {
             this->removeAction = std::move(removeAction);
         }
 

@@ -1,13 +1,11 @@
 #include "Properties.h"
 
 int main() {
-    IntegerProperty integerProperty = IntegerProperty(-1);
+    IntegerProperty integerProperty(-1);
 
-    std::shared_ptr<Observer<int>> observerPtr = std::make_shared<Observer<int>>(([](auto newValue) {
-        println(newValue * 2.25236);
-    }));
+    Observer<int> observer = createObserver<int>(([](auto v) { println(v * 2.25236); }));
 
-    std::shared_ptr<Subscription> subscription = integerProperty.Subscribe(observerPtr);
+    Subscription subscription = integerProperty.Subscribe(observer);
 
     for (int i = 1; i <= 10; i++) {
         integerProperty.setValue(i);

@@ -2,13 +2,13 @@
 
 #include "Subscription.h"
 
-using SubscriptionPtr = std::shared_ptr<Subscription>;
+using Subscription = std::shared_ptr<SubscriptionInternal>;
 
 template<class T>
 class ObservableBase {
 
     private:
-        std::vector<ObserverPtr<T>> observerPtrs;
+        std::vector<Observer<T>> observerPtrs;
         T currentValue;
 
     protected:
@@ -19,7 +19,7 @@ class ObservableBase {
         T getValue();
         void setValue(T t);
         void emit(T t);
-        SubscriptionPtr Subscribe(const ObserverPtr<T> & observerPtr);
+        Subscription Subscribe(const Observer<T> & observerPtr);
         unsigned int getObserverCount();
         ~ObservableBase();
 };
@@ -58,14 +58,9 @@ bool ObservableBase<T>::equal(T t1, T t2) {
 }
 
 template<typename T>
-SubscriptionPtr ObservableBase<T>::Subscribe(const ObserverPtr<T> & observerPtr) {
+Subscription ObservableBase<T>::Subscribe(const Observer<T> & observerPtr) {
     observerPtrs.push_back(observerPtr);
-
-    for (auto & ptr : observerPtrs) {
-        std::cout << "\t" << &observerPtrs << std::endl;
-    }
-
-    return std::make_shared<Subscription>([this, &observerPtr]() {
+    return std::make_shared<SubscriptionInternal>([this, &observerPtr]() {
         Remove(observerPtrs, observerPtr);
     });
 }
@@ -80,4 +75,4 @@ ObservableBase<T>::~ObservableBase() {
 template<class T>
 unsigned int ObservableBase<T>::getObserverCount() {
     return observerPtrs.size();
-};
+}
