@@ -1,4 +1,5 @@
-#include "Properties.h"
+#include "Rose/Properties.h"
+#include "Rose/Observable.h"
 
 int main() {
     IntegerProperty integerProperty(-1);
