@@ -4,3 +4,4 @@ Rose.cbp
 cmake_install.cmake
 build
 cmake-build-debug
+.idea/
