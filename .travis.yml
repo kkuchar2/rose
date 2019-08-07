@@ -9,7 +9,7 @@ addons:
     packages:            
       - g++-7
 script:
-  - cd rosecpp
+  - cd c++
   - export CC=gcc-7
   - export CXX=g++-7
   - cmake --version
