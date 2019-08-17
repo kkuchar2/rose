@@ -1,20 +1,23 @@
-package com.kkucharski.rose;
+package com.kkuchar2.rose;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class SubscriptionCleaner {
+public class SubscriptionContainer {
+
     private final List<Subscription> subscriptions = new LinkedList<>();
 
-    public void add(Subscription subscription) {
+    public void addSubscription(Subscription subscription) {
         subscriptions.add(subscription);
     }
 
-    public void remove(Subscription subscription) {
+    public void unsubscribe(Subscription subscription) {
+        subscription.unsubscribe();
         subscriptions.remove(subscription);
     }
 
     public void unsubscribe() {
         subscriptions.forEach(Subscription::unsubscribe);
+        subscriptions.clear();
     }
 }

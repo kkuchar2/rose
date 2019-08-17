@@ -1,9 +1,10 @@
-package com.kkucharski.rose;
+package com.kkuchar2.rose;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ObservableBase<T> {
+public abstract class ObservableBase<T> {
+
     private final List<Observer<T>> observers = new LinkedList<>();
 
     private T currentValue;
@@ -11,7 +12,7 @@ public class ObservableBase<T> {
     protected ObservableBase() {
     }
 
-    ObservableBase(T initValue) {
+    protected ObservableBase(T initValue) {
         currentValue = initValue;
     }
 
@@ -34,7 +35,9 @@ public class ObservableBase<T> {
         return new Subscription(() -> observers.remove(consumer));
     }
 
-    protected boolean equal(T t1, T t2) {
-        return false;
+    protected abstract boolean equal(T t1, T t2);
+
+    public int getObserverCount() {
+        return observers.size();
     }
 }

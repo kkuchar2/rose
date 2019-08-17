@@ -1,4 +1,4 @@
-package com.kkucharski.rose;
+package com.kkuchar2.rose;
 
 public class Subscription {
     private final Action unsubscribeAction;
